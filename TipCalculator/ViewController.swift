@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     @IBAction func onTap(_ sender: Any) {
         // dismiss keyboard
         view.endEditing(true)
@@ -37,8 +37,10 @@ class ViewController: UIViewController {
         let total = bill + tip
         
         // update tip and total labels
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+        let tipFormatted = formatCurreny(currency: tip)
+        let totalFormatted = formatCurreny(currency: total)
+        tipLabel.text = tipFormatted
+        totalLabel.text = totalFormatted
     }
     
     func getTipPercentage() -> Double {
@@ -52,6 +54,15 @@ class ViewController: UIViewController {
         if (bill.contains("..")) {
             billField.text = bill.replacingOccurrences(of: "..", with: ".")
         }
+    }
+    
+    func formatCurreny(currency: Double) -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.usesGroupingSeparator = true
+        currencyFormatter.numberStyle = .currency
+        currencyFormatter.locale = Locale.current
+        let formattedCurrency = currencyFormatter.string(from: NSNumber(value: currency))!
+        return formattedCurrency
     }
 }
 
