@@ -65,6 +65,7 @@
                                     <segment title="15%"/>
                                     <segment title="18%"/>
                                     <segment title="20%"/>
+                                    <segment title="Custom"/>
                                 </segments>
                                 <connections>
                                     <action selector="calculateTip:" destination="BYZ-38-t0r" eventType="valueChanged" id="F9G-qC-2m5"/>
@@ -88,7 +89,13 @@
                             <outletCollection property="gestureRecognizers" destination="DBb-NA-1uW" appends="YES" id="d74-ND-Mky"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Tip Calculator" id="kf6-J4-jNK"/>
+                    <navigationItem key="navigationItem" title="Tip Calculator" id="kf6-J4-jNK">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="wOR-gL-ey7">
+                            <connections>
+                                <segue destination="S1T-rs-HAS" kind="show" identifier="CustomTipSegue" id="MwJ-TT-iCb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="billField" destination="gs9-aD-49H" id="0Ho-vW-Xss"/>
                         <outlet property="tipControl" destination="NFC-zU-iTe" id="yAe-V2-yET"/>
@@ -104,6 +111,50 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1071.2" y="132.68365817091455"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="sJv-85-cKe">
+            <objects>
+                <viewController id="S1T-rs-HAS" customClass="SettingsViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q8O-St-tGR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ySk-gt-qae">
+                                <rect key="frame" x="140" y="319" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changeStepperValue:" destination="S1T-rs-HAS" eventType="valueChanged" id="rri-3K-EON"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Vb-DO-j10">
+                                <rect key="frame" x="140" y="213" width="94" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="LrJ-UT-oat">
+                                <rect key="frame" x="119" y="377" width="136" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Select Custom Tip"/>
+                                <connections>
+                                    <segue destination="LgQ-EN-0kx" kind="unwind" identifier="PickedTipSegue" unwindAction="selectedCustomTip:" id="6s6-8q-WrM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4Ws-0I-LpO"/>
+                    </view>
+                    <connections>
+                        <outlet property="stepper" destination="ySk-gt-qae" id="MTt-iI-MgB"/>
+                        <outlet property="valueLabel" destination="3Vb-DO-j10" id="lmD-f8-gAv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IrR-dl-OrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LgQ-EN-0kx" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1877.5999999999999" y="132.68365817091455"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="20R-6x-Vx4">

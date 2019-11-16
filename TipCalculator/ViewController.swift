@@ -14,15 +14,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
+    var customTip: Double = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
+        billField.becomeFirstResponder()
+        
+        if (customTip < 0) {
+            tipControl.setEnabled(false, forSegmentAt: 3)
+        }
     }
     
     @IBAction func onTap(_ sender: Any) {
         // dismiss keyboard
-        view.endEditing(true)
+        //view.endEditing(true)
     }
     
     @IBAction func calculateTip(_ sender: Any) {
@@ -44,7 +51,7 @@ class ViewController: UIViewController {
     }
     
     func getTipPercentage() -> Double {
-        let tipPercentages = [0.15, 0.18, 0.20]
+        let tipPercentages = [0.15, 0.18, 0.20, customTip]
         return tipPercentages[tipControl.selectedSegmentIndex]
     }
     
@@ -56,6 +63,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // format currency to locale-specific
     func formatCurreny(currency: Double) -> String {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true
@@ -64,5 +72,21 @@ class ViewController: UIViewController {
         let formattedCurrency = currencyFormatter.string(from: NSNumber(value: currency))!
         return formattedCurrency
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // don't need to send anything so nothing here
+    }
+    
+    // gets called by unwind segue from SettingsViewController
+    @IBAction func selectedCustomTip(_ segue: UIStoryboardSegue){
+        // don't need variable for source since customTip is set in the settings vc
+        // let controller = segue.source as! SettingsViewController
+        
+        tipControl.setEnabled(true, forSegmentAt: 3)
+        tipControl.selectedSegmentIndex = 3
+        tipControl.setTitle(String(Int(customTip * 100)) + "%", forSegmentAt: 3)
+        calculateTip(true)
+    }
+    
 }
 
