@@ -15,6 +15,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func onTap(_ sender: Any) {
+        // dismiss keyboard
+        view.endEditing(true)
+    }
+    
 }
 
